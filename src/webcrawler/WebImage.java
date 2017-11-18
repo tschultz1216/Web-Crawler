@@ -9,6 +9,6 @@ package webcrawler;
  *
  * @author Todd
  */
-public class WebImage {
+public class WebImage implements WebElement {
     
 }
