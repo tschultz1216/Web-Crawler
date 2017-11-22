@@ -6,6 +6,7 @@
 package webcrawler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,58 +16,40 @@ import java.util.ArrayList;
  *
  * @author Todd Schultz and Alan Miller
  */
+public class WebPage implements WebElement {
 
-
-public class WebPage implements WebElement{
-    
-    private Element element;
     private String url;
-    private ArrayList<WebFile> files;
     private ArrayList<WebImage> images;
+    private ArrayList<WebFile> files;
     private ArrayList<WebPage> pages;
-    
-    public WebPage(String string){
-        url = string;
-    }
-    
-    public WebPage(Element e){
-        element = e.clone();
-    }
-    
-    public void crawl() throws IOException{
+
+    public void crawl() throws IOException {
         Document doc = Jsoup.connect(url).get();
-        
+  
     }
-    
-    public ArrayList<WebImage> getImages(){
-        return images;
-    }
-    
-    public ArrayList<WebFile> getFiles(){
-        return files;
-    }
-    
-    public ArrayList<WebPage> getWebPages(){
-        return pages;
-    }
-    /**
-     * Getter method for private data field url.
-     * @return private date field url.
-     */
-    public String getUrl(){
-        return url;
-    }
-    
-    /**
-     * Setter method for private data field url.
-     * @param url url to set private field to.
-     */
-    public void setUrl(String url){
+
+    public void WebPage(String url) {
         this.url = url;
     }
-    
-    public void saveToFile(){
-        
+
+    public String getUrl() {
+        return this.url;
     }
-    
+
+    public ArrayList<WebImage> getImages(Element e) {
+        Elements foundImages = e.getElementsByAttribute("img");
+        for(Element element : foundImages){
+            WebImage wi = new WebImage(element);
+            images.add(wi);
+        }
+        return images;
+    }
+
+    public ArrayList<WebFile> getFiles() {
+        return files;
+    }
+
+    public ArrayList<WebPage> getWebpages() {
+        return pages;
+    }
 }

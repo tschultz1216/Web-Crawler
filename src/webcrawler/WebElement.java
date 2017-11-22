@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package webcrawler;
+//import javax.imageio;
+
+import org.jsoup.nodes.Element;
+
 
 import java.net.MalformedURLException;
 
@@ -13,7 +17,9 @@ import java.net.MalformedURLException;
  */
 public interface WebElement {
     
+
     public String getUrl();
     public void setUrl(String s);
     public void saveToFile()throws MalformedURLException;
+
 }

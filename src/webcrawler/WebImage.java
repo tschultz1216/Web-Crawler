@@ -5,6 +5,7 @@
  */
 package webcrawler;
 
+import org.jsoup.nodes.Element;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,15 +24,23 @@ import org.jsoup.select.Elements;
  * @author Todd
  */
 public class WebImage implements WebElement {
-
+    private Element image;
     private Element element;
     private String baseURI;
-
+    
+    public WebImage (Element element){
+    this.image = element;
+    }
+    
+    public String toString(){
+        return this.image.toString();
+    }
+ 
     public WebImage(Element e) {
         element = e.clone();
         baseURI = element.baseUri();
     }
-
+    @Override
     public void saveToFile() throws MalformedURLException {
 
         URL url = new URL(baseURI);
