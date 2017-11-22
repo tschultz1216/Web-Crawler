@@ -5,75 +5,68 @@
  */
 package webcrawler;
 
-import org.jsoup.nodes.Element;
+import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 /**
  *
- * @author Todd
+ * @author Todd Schultz and Alan Miller
  */
 public class WebImage implements WebElement {
+
+    static final String pathName = "/Users/alanmiller/Git/Repos/webCrawlerRepo/Web-Crawler";
     private Element image;
-    private Element element;
-    private String baseURI;
-    
-    public WebImage (Element element){
-    this.image = element;
-    }
-    
-    public String toString(){
+    private String absURL;
+
+    public String toString() {
         return this.image.toString();
     }
- 
+
     public WebImage(Element e) {
-        element = e.clone();
-        baseURI = element.baseUri();
+        image = e.clone();
+        absURL = image.absUrl("src");
+        //baseURI = image.toString().substring(image.toString().indexOf("src=\"")+5);
+        //System.out.println(baseURI);
+        //baseURI = baseURI.substring(0, baseURI.indexOf(".jpg")+4);
+
     }
+
     @Override
-    public void saveToFile() throws MalformedURLException {
+    public void saveToFile() throws IOException {
 
-        URL url = new URL(baseURI);
-        String fileName = url.getFile();
-        String destName = "./images";
-
-        System.out.println(destName);
-
-        try (InputStream stream = url.openStream();){
-            
-            OutputStream output = new FileOutputStream(destName);
-
-            byte[] b = new byte[2048];
-            int length;
-
-            while ((length = stream.read(b)) != -1) {
-                output.write(b, 0, length);
-            }
-
-            stream.close();
-            output.close();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(WebImage.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("ERROR, IO Exception Thrown on Image");
+        int index = absURL.lastIndexOf("/");
+        if (index == absURL.length()) {
+            absURL = absURL.substring(1, index);
         }
+
+        index = absURL.lastIndexOf("/");
+        String name = absURL.substring(index, absURL.length());
+
+        System.out.println(name);
+
+        URL url = new URL(absURL);
+
+        InputStream input = url.openStream();
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(pathName+name));
+        
+        for (int b; (b = input.read()) != -1;) {
+            out.write(b);
+        }
+        out.close();
+        input.close();
+
     }
 
     public void setUrl(String s) {
-        baseURI = s;
+        absURL = s;
     }
 
     public String getUrl() {
-        return baseURI;
+        return absURL;
     }
 }

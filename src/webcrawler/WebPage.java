@@ -6,6 +6,7 @@
 package webcrawler;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,14 +33,11 @@ public class WebPage implements WebElement {
         this.url = url;
     }
 
-    public String getUrl() {
-        return this.url;
-    }
 
     public ArrayList<WebImage> getImages(Element e) {
         Elements foundImages = e.getElementsByAttribute("img");
         for(Element element : foundImages){
-            WebImage wi = new WebImage(element);
+            WebImage wi = new WebImage(e);
             images.add(wi);
         }
         return images;
@@ -51,5 +49,20 @@ public class WebPage implements WebElement {
 
     public ArrayList<WebPage> getWebpages() {
         return pages;
+    }
+
+    @Override
+    public void setUrl(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void saveToFile() throws MalformedURLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public String getUrl() {
+        return this.url;
     }
 }

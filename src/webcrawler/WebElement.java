@@ -6,6 +6,7 @@
 package webcrawler;
 //import javax.imageio;
 
+import java.io.IOException;
 import org.jsoup.nodes.Element;
 
 
@@ -20,6 +21,6 @@ public interface WebElement {
 
     public String getUrl();
     public void setUrl(String s);
-    public void saveToFile()throws MalformedURLException;
+    public void saveToFile()throws IOException;
 
 }

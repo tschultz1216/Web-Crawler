@@ -14,10 +14,16 @@ import org.jsoup.select.Elements;
 
 /**
  *
- * @author Todd
+ * @author Todd Schultz and Alan Miller
  */
 public class WebFile implements WebElement {
 
+    private String url;
+    private Element element;
+
+    public WebFile(Element e) {
+        element = e.clone();
+    }
 
     @Override
     public String getUrl() {
@@ -25,32 +31,13 @@ public class WebFile implements WebElement {
     }
 
     @Override
-    public String setUrl() {
+    public void saveToFile() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void saveToFile() {
+    public void setUrl(String s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    private String url;
-    private Element element;
-    
-    public WebFile (Element e){
-        element = e.clone();
-    }
-    
-    public void saveToFile()throws MalformedURLException{
-        
-    }
-    
-    public void setUrl(String s){
-        
-    }
-    
-    public String getUrl(){
-        return url;
-    }
-    
+
 }
