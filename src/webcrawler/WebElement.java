@@ -9,15 +9,17 @@ package webcrawler;
 import org.jsoup.nodes.Element;
 
 
+import java.net.MalformedURLException;
+
 /**
  *
- * @author Todd
+ * @author Todd Schultz and Alan Miller
  */
 public interface WebElement {
     
-    
+
     public String getUrl();
-    public String setUrl();
-    public void saveToFile();
-    
+    public void setUrl(String s);
+    public void saveToFile()throws MalformedURLException;
+
 }

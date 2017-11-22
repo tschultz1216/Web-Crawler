@@ -11,12 +11,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
+import java.util.ArrayList;
 /**
  *
- * @author Todd
+ * @author Todd Schultz and Alan Miller
  */
-public class WebPage {
+public class WebPage implements WebElement {
 
     private String url;
     private ArrayList<WebImage> images;

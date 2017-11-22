@@ -12,6 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import java.util.Scanner;
 
 /**
  *
@@ -23,6 +24,7 @@ public class WebCrawler {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+<
         ArrayList<WebImage> images = new ArrayList<WebImage>();
         // TODO code application logic here
         // add Scanner to get first inpput link
@@ -48,6 +50,14 @@ public class WebCrawler {
 //  log("%s\n\t%s", 
 //    headline.attr("title"), headline.absUrl("href"));
     }
+
+        
+        Scanner scanner = new Scanner(System.in);
+        WebPage webPage = new WebPage(scanner.next());
+        
+    }
+
+
 }
 
 
