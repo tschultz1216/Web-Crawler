@@ -5,10 +5,15 @@
  */
 package webcrawler;
 
+import java.net.MalformedURLException;
+
 /**
  *
- * @author Todd
+ * @author Todd Schultz and Alan Miller
  */
 public interface WebElement {
     
+    public String getUrl();
+    public void setUrl(String s);
+    public void saveToFile()throws MalformedURLException;
 }
