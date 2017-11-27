@@ -34,7 +34,7 @@ public class WebImage implements WebElement {
         //System.out.println(baseURI);
         //baseURI = baseURI.substring(0, baseURI.indexOf(".jpg")+4);
 
-    }
+    }  
 
     @Override
     public void saveToFile() throws IOException {

@@ -24,7 +24,11 @@ public class WebFile implements WebElement {
     public WebFile(Element e) {
         element = e.clone();
     }
-
+    
+    public String toString(){
+    return element.toString();
+    }
+    
     @Override
     public String getUrl() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -32,12 +36,12 @@ public class WebFile implements WebElement {
 
     @Override
     public void saveToFile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
-
     @Override
     public void setUrl(String s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
 }

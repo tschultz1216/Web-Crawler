@@ -20,62 +20,65 @@ import java.util.ArrayList;
  */
 public class WebPage implements WebElement {
 
-    private Element thisPage;
+    private Element webpage;
     private String url;
     private ArrayList<WebImage> images;
     private ArrayList<WebFile> files;
     private ArrayList<WebPage> pages;
 
     public void crawl() throws IOException {
-        thisPage = Jsoup.connect(url).get();
+
 
     }
 
     public void parse() throws IOException {
-        this.getFiles(thisPage);
-        this.getImages(thisPage);
-        this.getWebpages(thisPage);
+        this.getFiles();
+        this.getImages();
+        this.getWebpages();
+//        Document doc = Jsoup.connect(url).get();
+
+    }
+
+    public WebPage(Element e) {
+        this.webpage = e.clone();
+    }
+
+    @Override
+    public void setUrl(String s) {
+        this.url = s;
     }
 
     public WebPage(String url) throws IOException {
         Element e = Jsoup.connect(url).get();
-        thisPage = e.clone();
         this.url = url;
     }
 
-    public ArrayList<WebImage> getImages(Element e) {
-        Elements foundImages = e.getElementsByAttribute("img");
+    public ArrayList<WebImage> getImages() {
+        Elements foundImages = this.webpage.getElementsByAttribute("img");
         for (Element element : foundImages) {
-            WebImage wi = new WebImage(e);
+            WebImage wi = new WebImage(element);
             images.add(wi);
             System.out.println(wi);
         }
         return images;
     }
 
-    public ArrayList<WebFile> getFiles(Element e) {
-        Elements foundFiles = e.getElementsByAttributeValueNot("src", "img");
-        for (Element element : foundFiles) {
-            WebFile fi = new WebFile(e);
+
+    public ArrayList<WebFile> getFiles() {
+        Elements foundImages = this.webpage.getElementsByAttributeValueNot("src", "img");
+        for (Element element : foundImages) {
+            WebFile fi = new WebFile(element);
             files.add(fi);
-            System.out.println(fi);
-        }
-        return files;
+        }        return files;
     }
 
-    public ArrayList<WebPage> getWebpages(Element e) throws IOException {
-        Elements foundPages = e.getElementsByAttribute("href");
+    public ArrayList<WebPage> getWebpages() {
+        Elements foundPages = this.webpage.getElementsByAttribute("href");
         for (Element element : foundPages) {
-            WebPage wp = new WebPage(e.absUrl("href"));
-            pages.add(wp);
-            System.out.println(wp);
+            WebPage pi = new WebPage(element);
+            pages.add(pi);
         }
         return pages;
-    }
-
-    @Override
-    public void setUrl(String s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -86,5 +89,10 @@ public class WebPage implements WebElement {
     @Override
     public String getUrl() {
         return this.url;
+    }
+    
+    @Override
+    public String toString(){
+        return this.webpage.toString();
     }
 }
