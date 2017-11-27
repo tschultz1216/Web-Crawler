@@ -25,30 +25,34 @@ public class WebCrawler {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        
+
         ArrayList<WebImage> images = new ArrayList<WebImage>();
-        // TODO code application logic here
-        // add Scanner to get first inpput link
+        // add Scanner to get first input link
+
         // parse input doc for each "href" 
         // parse input for each image file
         // new doc  for each href link using Jsoup.connect(string).get()
-//            System.out.println("Change");
-//
-        Element doc = Jsoup.connect("https://en.wikipedia.org/wiki/Sea_mink#/media/File:The_Canadian_field-naturalist_(1988)_(20332897078).jpg").get();
-        Elements e = doc.getAllElements();
-        Elements foundImages = doc.getElementsByTag("img");
-        for (Element element : foundImages) {
-            WebImage wi = new WebImage(element);
+        Element base = Jsoup.connect("https://en.wikipedia.org/").get();
+        WebPage doc = new WebPage("https://en.wikipedia.org/");
+        doc.parse();
+//        Elements e = base.getAllElements();
+
+//        Elements foundPages = base.getElementsByTag("img");
+//        for (Element element : foundPages) {
+//            WebImage wi = new WebImage(element);
 //            System.out.println(element.toString());
-            images.add(wi);
-        }
-        for (WebImage image : images) {
-            image.saveToFile();
-        } //Elements newsHeadlines = doc.select("#mp-itn b a");
-//for (Element headline : newsHeadlines) {
-//  log("%s\n\t%s", 
-//    headline.attr("title"), headline.absUrl("href"));
-    }
+//            images.add(wi);
+//        }
+//        Elements foundImages = doc.getElementsByTag("img");
+//        for (Element element : foundImages) {
+//            WebImage wi = new WebImage(element);
+//            System.out.println(element.toString());
+//            images.add(wi);
+//        }
+//        for (WebImage image : images) {
+//            image.saveToFile();
+//        }
+//    }
 
     Scanner scanner = new Scanner(System.in);
     //WebPage webPage = new WebPage(scanner.next());

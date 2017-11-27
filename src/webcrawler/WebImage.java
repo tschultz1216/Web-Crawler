@@ -19,7 +19,7 @@ import org.jsoup.nodes.Element;
  */
 public class WebImage implements WebElement {
 
-    static final String pathName = "/Users/alanmiller/Git/Repos/webCrawlerRepo/Web-Crawler";
+    static final String pathName = "C:\\Users\\Todd\\Documents\\NetBeansProjects\\WebCrawler\\images";
     private Element image;
     private String absURL;
 

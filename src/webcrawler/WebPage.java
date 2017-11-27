@@ -13,41 +13,63 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.ArrayList;
+
 /**
  *
  * @author Todd Schultz and Alan Miller
  */
 public class WebPage implements WebElement {
 
+    private Element thisPage;
     private String url;
     private ArrayList<WebImage> images;
     private ArrayList<WebFile> files;
     private ArrayList<WebPage> pages;
 
     public void crawl() throws IOException {
-        Document doc = Jsoup.connect(url).get();
-  
+        thisPage = Jsoup.connect(url).get();
+
     }
 
-    public void WebPage(String url) {
+    public void parse() throws IOException {
+        this.getFiles(thisPage);
+        this.getImages(thisPage);
+        this.getWebpages(thisPage);
+    }
+
+    public WebPage(String url) throws IOException {
+        Element e = Jsoup.connect(url).get();
+        thisPage = e.clone();
         this.url = url;
     }
 
-
     public ArrayList<WebImage> getImages(Element e) {
         Elements foundImages = e.getElementsByAttribute("img");
-        for(Element element : foundImages){
+        for (Element element : foundImages) {
             WebImage wi = new WebImage(e);
             images.add(wi);
+            System.out.println(wi);
         }
         return images;
     }
 
-    public ArrayList<WebFile> getFiles() {
+    public ArrayList<WebFile> getFiles(Element e) {
+        Elements foundFiles = e.getElementsByAttributeValueNot("src", "img");
+        for (Element element : foundFiles) {
+            WebFile fi = new WebFile(e);
+            files.add(fi);
+            System.out.println(fi);
+        }
         return files;
     }
 
-    public ArrayList<WebPage> getWebpages() {
+    public ArrayList<WebPage> getWebpages(Element e) throws IOException {
+        Elements foundPages = e.getElementsByAttribute("href");
+        for (Element element : foundPages) {
+            WebPage wp = new WebPage(e.absUrl("href"));
+            pages.add(wp);
+            System.out.println(wp);
+        }
         return pages;
     }
 
@@ -60,7 +82,7 @@ public class WebPage implements WebElement {
     public void saveToFile() throws MalformedURLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String getUrl() {
         return this.url;
