@@ -6,9 +6,11 @@
 package webcrawler;
 
 //import org.jsoup.Jsoup.;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -18,26 +20,45 @@ import org.jsoup.select.Elements;
  */
 public class WebCrawler {
 
+    /*
+    Try with this dirName: /Users/alanmiller/Git/Repos/webCrawlerRepo/Web-Crawler
+     */
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException{
-        // TODO code application logic here
-        
-        // add Scanner to get first inpput link
-        // parse input doc for each "href" 
-        // parse input for each image file
-        
-        // new doc  for each href link using Jsoup.connect(string).get()
-        
-            System.out.println("Change");
+    public static void main(String[] args) throws IOException {
 
-        Document doc = Jsoup.connect("http://en.wikipedia.org/").get();
-Elements newsHeadlines = doc.select("#mp-itn b a");
-for (Element headline : newsHeadlines) {
-//  log("%s\n\t%s", 
-//    headline.attr("title"), headline.absUrl("href"));
-}
+        ArrayList<WebImage> images = new ArrayList<WebImage>();
+
+        DownloadRepository repo = DownloadRepository.getInstance();
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter an HTTP address:  ");
+        String address = scanner.next();
+
+        System.out.println("\n\nPlease enter a name for the new directory:  ");
+        repo.setDirName(scanner.next());
+
+        scanner.close();
+
+        boolean success = (new File(repo.getDirName())).mkdirs();
+        if (success) {
+            System.out.println("Directories: " + repo.getDirName() + " created");
+        }
+
+        Element doc = Jsoup.connect(address).get();
+        Elements e = doc.getAllElements();
+        Elements foundImages = doc.getElementsByTag("img");
+        for (Element element : foundImages) {
+            WebImage wi = new WebImage(element);
+//            System.out.println(element.toString());
+            images.add(wi);
+        }
+
+        for (WebImage image : images) {
+            image.saveToFile();
+        }
     }
-    
 }
+
