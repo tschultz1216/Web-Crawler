@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Todd/Documents/NetBeansProjects/WebCrawler/src/webcrawler/WebPage.java</file>
-            <file>file:/C:/Users/Todd/Documents/NetBeansProjects/WebCrawler/src/webcrawler/WebImage.java</file>
-            <file>file:/C:/Users/Todd/Documents/NetBeansProjects/WebCrawler/src/webcrawler/WebElement.java</file>
-            <file>file:/C:/Users/Todd/Documents/NetBeansProjects/WebCrawler/src/webcrawler/WebCrawler.java</file>
-            <file>file:/C:/Users/Todd/Documents/NetBeansProjects/WebCrawler/src/webcrawler/WebFile.java</file>
+            <file>file:/Users/alanmiller/Git/Repos/webCrawlerRepo/Web-Crawler/src/webcrawler/WebCrawler.java</file>
+            <file>file:/Users/alanmiller/Git/Repos/webCrawlerRepo/Web-Crawler/src/webcrawler/DownloadRepository.java</file>
+            <file>file:/Users/alanmiller/Git/Repos/webCrawlerRepo/Web-Crawler/src/webcrawler/WebImage.java</file>
         </group>
     </open-files>
 </project-private>
