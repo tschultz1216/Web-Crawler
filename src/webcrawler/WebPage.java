@@ -13,56 +13,86 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.ArrayList;
+
 /**
  *
  * @author Todd Schultz and Alan Miller
  */
 public class WebPage implements WebElement {
 
+    private Element webpage;
     private String url;
     private ArrayList<WebImage> images;
     private ArrayList<WebFile> files;
     private ArrayList<WebPage> pages;
 
     public void crawl() throws IOException {
-        Document doc = Jsoup.connect(url).get();
-  
+
+
     }
 
-    public void WebPage(String url) {
-        this.url = url;
+    public void parse() throws IOException {
+        this.getFiles();
+        this.getImages();
+        this.getWebpages();
+//        Document doc = Jsoup.connect(url).get();
+
     }
 
-
-    public ArrayList<WebImage> getImages(Element e) {
-        Elements foundImages = e.getElementsByAttribute("img");
-        for(Element element : foundImages){
-            WebImage wi = new WebImage(e);
-            images.add(wi);
-        }
-        return images;
-    }
-
-    public ArrayList<WebFile> getFiles() {
-        return files;
-    }
-
-    public ArrayList<WebPage> getWebpages() {
-        return pages;
+    public WebPage(Element e) {
+        this.webpage = e.clone();
     }
 
     @Override
     public void setUrl(String s) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.url = s;
+    }
+
+    public WebPage(String url) throws IOException {
+        Element e = Jsoup.connect(url).get();
+        this.url = url;
+    }
+
+    public ArrayList<WebImage> getImages() {
+        Elements foundImages = this.webpage.getElementsByAttribute("img");
+        for (Element element : foundImages) {
+            WebImage wi = new WebImage(element);
+            images.add(wi);
+            System.out.println(wi);
+        }
+        return images;
+    }
+
+
+    public ArrayList<WebFile> getFiles() {
+        Elements foundImages = this.webpage.getElementsByAttributeValueNot("src", "img");
+        for (Element element : foundImages) {
+            WebFile fi = new WebFile(element);
+            files.add(fi);
+        }        return files;
+    }
+
+    public ArrayList<WebPage> getWebpages() {
+        Elements foundPages = this.webpage.getElementsByAttribute("href");
+        for (Element element : foundPages) {
+            WebPage pi = new WebPage(element);
+            pages.add(pi);
+        }
+        return pages;
     }
 
     @Override
     public void saveToFile() throws MalformedURLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String getUrl() {
         return this.url;
+    }
+    
+    @Override
+    public String toString(){
+        return this.webpage.toString();
     }
 }
