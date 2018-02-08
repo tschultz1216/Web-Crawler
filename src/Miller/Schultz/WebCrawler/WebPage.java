@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * to recursively parse and crawl through any WebPage elements linked to
  * by the current WebPage, as well as methods to determine certain characteristics
  * of various web elements.
- * @author Todd Schultz and Alan Miller
+ * @author Todd Schultz 
  */
 public class WebPage implements WebElement {
 
