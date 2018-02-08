@@ -67,7 +67,7 @@ public class WebPage implements WebElement {
      */
     public void crawl(int currentDepth, int maxDepth) throws IOException {
 
-        if (currentDepth == maxDepth) {
+        if (currentDepth <= maxDepth) {
             for (WebPage page : pages) {
                 try {
                     Element e = Jsoup.connect(page.webpage.absUrl("href")).get();
@@ -91,30 +91,7 @@ public class WebPage implements WebElement {
                 }
 
             }
-        } else if (currentDepth < maxDepth) {
-            for (WebPage page : pages) {
-                try {
-                    Element e = Jsoup.connect(page.webpage.absUrl("href")).get();
-                    System.out.println(page.webpage.absUrl("href"));
-                    WebPage wp = new WebPage(e);
-                    wp.parse();
-
-                    for (WebImage img : wp.images) {
-                        img.saveToFile();
-                    }
-
-                    for (WebFile file : wp.files) {
-                        file.saveToFile();
-                    }
-                    wp.crawl(currentDepth + 1, maxDepth);
-                } catch (org.jsoup.HttpStatusException e) {
-                    System.err.println("Could not connect to " + e.getUrl() + "\n");
-                } catch (javax.net.ssl.SSLHandshakeException e) {
-                    System.err.println("Cannot connect to untrustworthy host\n"
-                            + e.getLocalizedMessage());
-                }
-            }
-        }
+        } 
         //Implied base case outside of conditionals
         System.out.println("-- Leaf reached max crawl depth --");
     }
